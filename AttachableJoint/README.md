@@ -41,3 +41,8 @@ ign topic -t /box2/attach -m ignition.msgs.StringMsg -p 'data:"[parentModel][Par
 ~~~
 You can send it from ROS2, see https://github.com/ignitionrobotics/ros_ign/tree/melodic/ros_ign_bridge
 
+
+
+ros2 topic pub /box2/attach std_msgs/msg/String 'data:"[diff_drive][lidar_link][box][box_link]"'
+
+ros2 topic pub /box2/attach std_msgs/msg/String 'data:"[box1][AttachableLink_1][box2][AttachableLink_1][attach]"' --once

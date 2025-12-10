@@ -32,63 +32,24 @@ ign topic -t /AttachableJoint -m ignition.msgs.StringMsg -p 'data:"[parentModel]
 You can send it from ROS2, see https://github.com/ignitionrobotics/ros_ign/tree/melodic/ros_ign_bridge
 
 
+Use a link that has a body, not an empty link, otherwise it somehow doesn't work.
 
+In world/diff_drive.sdf: use 
+```
+ros2 topic pub /box2/attach std_msgs/msg/String 'data: "[diff_drive][lidar_link][box2][box_body][attach]"' --once  
+```
 
 
 
 
 # Installation
 
-Download repository
+Download repository into workspace
 ~~~
 git clone 
 ~~~
-it should create a directory called "AttachablePlugin"
+
+colcon build and source and everything should be good.
 
 
-
-I compiled the binary for ROS 2 Foxy (Ubuntu 20.04) you can use .so or compile it yourself. To compile you need ignition from source.
-
-
-
-# Instalation from Source:
-Add the plugin to ignition (workspace is where ignition from source is installed):
-
-Download repository
-~~~
-git clone 
-~~~
-it should create a directory called "AttachablePlugin" in "home"
-
-You can paste the files directly inside the directory "system_plugin" in "/workspace/src/ign-gazebo/examples/examples/system_plugin"
-or you can make link to the file.
-
-
-~~~
-cd ~/workspace/src/ign-gazebo/examples/examples/system_plugin
-
-rm -r AttachableJoint.*
-rm CMakeLists.txt
-ln -s /AttachablePlugin/AttachableJoint/CMakeLists.txt 
-ln -s /AttachablePlugin/AttachableJoint/AttachableJoint.cc 
-ln -s /AttachablePlugin/AttachableJoint/AttachableJoint.hh
-ln -s /AttachablePlugin/AttachableJoint/AttachableJoint.sdf
-
-~~~
-
-
-For build the plugin, create a directory named build inside "system_plugin" and run:
-~~~
-mkdir build
-cd build
-cmake ..
-make
-~~~
-
-
-Add library:
-~~~
-cd ign-gazebo/examples/plugins/system_plugin
-export IGN_GAZEBO_SYSTEM_PLUGIN_PATH=`pwd`/build
-~~~
-
+Used https://github.com/gazebosim/ros_gz_project_template/ for cmakelists and package 
