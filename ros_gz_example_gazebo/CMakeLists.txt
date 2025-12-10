@@ -21,9 +21,9 @@ set(GZ_SIM_VER ${ignition-gazebo6_VERSION_MAJOR})
 # Following 'add_library' directive defines a library target named 'BasicSystem'.
 # The 'SHARED' keyword indicates that a shared library should be compiled, and
 # is followed by the list of source files for the target.
-add_library(BasicSystem
+add_library(GraspPlugin
   SHARED
-  src/BasicSystem.cc
+  src/GraspPlugin.cc
 )
 
 # Following 'target_include_directories' directive specifies 'include' as the
@@ -31,7 +31,7 @@ add_library(BasicSystem
 # The 'PRIVATE' keyword specifies that this directive will populate the
 # INCLUDE_DIRECTORIES property for the 'BasicSystem' target.
 target_include_directories(
-  BasicSystem PRIVATE include
+  GraspPlugin PRIVATE include
 )
 
 # Following 'target_link_libraries' directive specifies to use the 
@@ -40,21 +40,7 @@ target_include_directories(
 # automatically be included if the 'BasicSystem' target were to
 # be linked to anoter target. 
 # ${GZ_SIM_VER} is substituted by the value that is was set to above.
-target_link_libraries(BasicSystem PRIVATE
-  ignition-gazebo${GZ_SIM_VER}::ignition-gazebo${GZ_SIM_VER})
-
-
-# Following directives similarly specify another target: 'FullSystem'.
-add_library(FullSystem
-  SHARED
-  src/FullSystem.cc
-)
-
-target_include_directories(
-  FullSystem PRIVATE include
-)
-
-target_link_libraries(FullSystem PRIVATE
+target_link_libraries(GraspPlugin PRIVATE
   ignition-gazebo${GZ_SIM_VER}::ignition-gazebo${GZ_SIM_VER})
 
 
@@ -63,17 +49,8 @@ target_link_libraries(FullSystem PRIVATE
 # of the 'BasicSystem' and 'FullSystem' targets will be copied
 # to the subfolder 'lib/grasp_plugin' of the install directory.
 install(
-  TARGETS BasicSystem FullSystem
+  TARGETS GraspPlugin 
   DESTINATION lib/${PROJECT_NAME}
-)
-
-
-# Following 'install' directive ensures that the 'worlds' subfolder
-# will be copied to the 'share/grasp_plugin/worlds'
-# subfolder of the installation directory.
-install(
-  DIRECTORY worlds/
-  DESTINATION share/${PROJECT_NAME}/worlds
 )
 
 

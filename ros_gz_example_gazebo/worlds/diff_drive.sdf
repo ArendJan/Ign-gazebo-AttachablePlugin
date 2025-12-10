@@ -38,13 +38,25 @@
       filename="BasicSystem"
       name="ros_gz_example_gazebo::BasicSystem">
     </plugin> -->
-    <plugin
+    <!-- <plugin
     filename="attachable_joint_plugin"
     name="attachable_joint::AttachableJoint">  <detachtopic>/box2/detach</detachtopic>
-    <attachtopic>/box2/attach</attachtopic></plugin>
+    <attachtopic>/box2/attach</attachtopic></plugin> -->
+     <!-- <plugin
+    filename="BasicSystem"
+    name="grasp_plugin::AttachableJoint">  <detachtopic>/grasp/detach</detachtopic>
+    <attachtopic>/grasp/attach</attachtopic></plugin> -->
+     <plugin
+    filename="GraspPlugin"
+    name="grasp_plugin::GraspJoint">  <detachtopic>/grasp/detach</detachtopic>
+    <attachtopic>/grasp/attach</attachtopic>
+    <offset_x>1.0</offset_x>
+    <offset_y>0.0</offset_y>
+    <offset_z>1.5</offset_z>
+    </plugin>
     <!-- <plugin
       filename="FullSystem"
-      name="ros_gz_example_gazebo::FullSystem">
+      name="grasp_plugin::FullSystem">
     </plugin> -->
 
     <light name="sun" type="directional">

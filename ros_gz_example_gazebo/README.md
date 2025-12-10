@@ -1,38 +1,30 @@
-# ros_gz_example_gazebo
+# grasp plugin
 
-This subfolder holds example source files and a corresponding `CMakeLists.txt` file, as a starting point for compiling Gazebo implementations in a personal repository (i.e. not part of the official Gazebo source repositories).
+'Simple' plugin for 'grasping' objects. The plugin moves the child object to the offset specified in the sdf and then next update loop adds an detachablejoint.
 
-The provided `CMakeLists.txt` file contains the directives to compile two example Gazebo systems: `BasicSystem` and `FullSystem`.
+Copied code from upstream fork (also in AttachableJoint folder) and used https://github.com/gazebosim/ros_gz_project_template/ to create package of it.
 
-For more information on Gazebo Sim systems, see following [Gazebo Sim tutorials](https://gazebosim.org/api/sim/7/tutorials.html):
-
-- [Create System Plugins](https://gazebosim.org/api/sim/7/createsystemplugins.html)
-- [Migration from Gazebo Classic: Plugins](https://gazebosim.org/api/sim/7/migrationplugins.html)
-
-
-## `BasicSystem` and `FullSystem`
-
-`BasicSystem` is an example system that implements only the `ISystemPostUpdate` interface:
-
-```c++
- class BasicSystem:
-    public gz::sim::System,
-    public gz::sim::ISystemPostUpdate
+# Usage:
+```xml
+ <plugin
+    filename="GraspPlugin" name="grasp_plugin::GraspJoint"> 
+    <attachtopic>/grasp/attach</attachtopic>
+    <offset_x>1.0</offset_x>
+    <offset_y>0.0</offset_y>
+    <offset_z>1.5</offset_z>
+</plugin>
 ```
 
-`FullSystem` is an example system that implements all of the system interfaces:
 
-```c++
-class FullSystem:
-    public gz::sim::System,
-    public gz::sim::ISystemConfigure,
-    public gz::sim::ISystemPreUpdate,
-    public gz::sim::ISystemUpdate,
-    public gz::sim::ISystemPostUpdate
+See worlds/diff_drive.sdf for example world.
+
+```bash
+ign topic .....
+ros2 topic pub /grasp/attach std_msgs/msg/String 'data: "[diff_drive][lidar_link][box1][box_body][attach]"' --once
+ros2 topic pub /grasp/attach std_msgs/msg/String 'data: "[diff_drive][lidar_link][box1][box_body][detach]"' --once
 ```
 
-See the comments in the source files for further documentation.
 
-## `CMakeLists.txt`
-
-The provided `CMakeLists.txt` file contains comments that clarify the different sections and commands, and how to apply these to your project.
+# Notes:
+- make sure that the offset is far enough, self-collision will crash Gazebo
+- Use a link of the child with the model/collision, otherwise it won't work (don't use the AttachableLinks in the sdf)

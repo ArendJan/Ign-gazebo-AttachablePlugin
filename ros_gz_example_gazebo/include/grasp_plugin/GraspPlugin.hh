@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef SYSTEM_PLUGIN_ATTACHABLEJOINT_HH_
-#define SYSTEM_PLUGIN_ATTACHABLEJOINT_HH_
+#ifndef SYSTEM_PLUGIN_GraspJoint_HH_
+#define SYSTEM_PLUGIN_GraspJoint_HH_
 
 
 #include <ignition/msgs/empty.pb.h>
@@ -50,13 +50,13 @@ namespace grasp_plugin
 /// will not print a warning message if a child model does not exist yet.
 /// Otherwise, a warning message is printed. Defaults to false.
 
-class AttachableJoint
+class GraspJoint
     : public ignition::gazebo::System,
       public ignition::gazebo::ISystemConfigure,
       public ignition::gazebo::ISystemPreUpdate
 {
   /// Documentation inherited
-  public: AttachableJoint() = default;
+  public: GraspJoint() = default;
 
   /// Documentation inherited
   public: void Configure(const ignition::gazebo::Entity &_entity,
@@ -78,8 +78,8 @@ class AttachableJoint
   /// \brief Collision entities that have been designated as contact sensors.
   /// These will be checked against the targetEntities to establish whether this
   /// model is touching the targets
-  /*public: std::vector<Entity> attachableJointList;*/
-  public: std::vector<std::pair<ignition::gazebo::Entity, std::string>> attachableJointList;
+  /*public: std::vector<Entity> GraspJointList;*/
+  public: std::vector<std::pair<ignition::gazebo::Entity, std::string>> GraspJointList;
 
   /// \brief The model associated with this system.
   private: ignition::gazebo::Model model;
@@ -98,7 +98,7 @@ class AttachableJoint
   private: std::string childLinkName;
 
   /// \brief Name of Parent Model
-  private: std::string attachableJointName;
+  private: std::string GraspJointName;
 
   /// \brief Topic to be used for detaching connections
   private: std::string attachtopic;
@@ -119,7 +119,7 @@ class AttachableJoint
   private: ignition::gazebo::Entity childLinkEntity{ignition::gazebo::kNullEntity};
 
   /// \brief Entity of the detachable joint created by this system
-  private: ignition::gazebo::Entity attachableJointEntity{ignition::gazebo::kNullEntity};
+  private: ignition::gazebo::Entity GraspJointEntity{ignition::gazebo::kNullEntity};
 
   /// \brief Whether detachment has been requested
   private: std::atomic<bool> detachRequested{false};
@@ -138,6 +138,14 @@ class AttachableJoint
 
   /// \brief Whether the system has not been initialized, to only run one time subscribe to attachtopic
   private: bool not_initialized{true};
+
+  double offset_z{0.0};
+  double offset_y{0.0};
+  double offset_x{0.0};
+
+  bool MoveChildToParent(ignition::gazebo::EntityComponentManager &_ecm);
+  bool move_timeout{false};
+  bool need_move{false};
 };
 }
 

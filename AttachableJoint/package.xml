@@ -2,16 +2,16 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>attachable_joint</name>
-  <version>0.0.0</version>
-  <description>Gazebo-specific implementations for the ros_gz_example project</description>
-  <maintainer email="michael@openrobotics.org">Michael Carroll</maintainer>
+  <version>0.0.1</version>
+  <description>AttachableJoint for gazebo ignition</description>
+  <maintainer email="a.j.vanhilten@tudelft.nl">Arend-Jan van Hilten</maintainer>
   <license>Apache 2.0</license>
-  <author>Michael Carroll</author>
-  <author>Dharini Dutia</author>
+  <author>David Gutierrez</author>
+  <author>Arend-Jan van Hilten</author>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <depend>ros_gz_example_description</depend>
+  <!-- dunno -->
 
   <test_depend>ament_lint_auto</test_depend>
 
