@@ -15,11 +15,21 @@ Copied code from upstream fork (also in AttachableJoint folder) and used https:/
 </plugin>
 ```
 
+Bridge config:
+```yaml 
+- ros_topic_name: "/grasp/attach"
+  gz_topic_name: "/grasp/attach"
+  ros_type_name: "std_msgs/msg/String"
+  gz_type_name: "gz.msgs.StringMsg"
+  direction: ROS_TO_GZ
+```
 
 See worlds/diff_drive.sdf for example world.
 
+
+Attaching and detaching:
 ```bash
-ign topic .....
+# ign topic .....
 ros2 topic pub /grasp/attach std_msgs/msg/String 'data: "[diff_drive][lidar_link][box1][box_body][attach]"' --once
 ros2 topic pub /grasp/attach std_msgs/msg/String 'data: "[diff_drive][lidar_link][box1][box_body][detach]"' --once
 ```
