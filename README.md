@@ -44,7 +44,7 @@ ros2 topic pub /box2/attach std_msgs/msg/String 'data: "[diff_drive][lidar_link]
 
 # Installation
 
-0. Clone the version of [this](https://github.com/gazebosim/ros_gz_project_template/)  repository correspond to your gazebo version
+0. Clone the version of [this](https://github.com/gazebosim/ros_gz_project_template/)  repository corresponding to your gazebo version
 
 For example:
 ```bash
