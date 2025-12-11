@@ -2,19 +2,19 @@
 # AttachablePlugin
 =======
 # AttachablePlugin (AttachableJoint)
-This is a plugin for Ignitions that generates a joint Dinamically during simulation with a topic where you send a string that contains parent model, parent link, child model and child link.
+This is a plugin for Ignitions that generates a joint dynamically during simulation with a topic where you send a string that contains parent model, parent link, child model and child link.
 It can be used to grab things in gazebo and for modular robots.
-
 
 
 1. Include the plugin in the .sdf world.
 
 It does not need to be inside a model. 
 ~~~
-<plugin filename=" ... /libAttachableJoint.so" name="attachable_joint::AttachableJoint">
+<plugin filename=" <path_to_your_build_folder> /libAttachableJoint.so" name="attachable_joint::AttachableJoint">
 </plugin>
 ~~~
-
+ for example:
+     <plugin filename="/home/ega/examples_ws/install/attachable_joint/lib/attachable_joint/libattachable_joint_plugin.so" name="attachable_joint::AttachableJoint"/>
 
 
 2. Create and Destroy the Link Dinamically
@@ -44,12 +44,17 @@ ros2 topic pub /box2/attach std_msgs/msg/String 'data: "[diff_drive][lidar_link]
 
 # Installation
 
-Download repository into workspace
-~~~
-git clone 
-~~~
+0. Clone the version of [this](https://github.com/gazebosim/ros_gz_project_template/)  repository correspond to your gazebo version
 
-colcon build and source and everything should be good.
+For example:
+```bash
+git clone -b fortress https://github.com/gazebosim/ros_gz_project_template.git
+```
 
+1. Clone this repository e.g.
 
-Used https://github.com/gazebosim/ros_gz_project_template/ for cmakelists and package 
+```bash
+git clone https://github.com/kas-lab/Ign-gazebo-AttachablePlugin.git
+```
+
+2. Build your workspace using colcon
