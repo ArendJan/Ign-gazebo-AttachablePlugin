@@ -1,4 +1,8 @@
 # AttachablePlugin (AttachableJoint)
+
+# Old plugin, should still work
+
+
 This is a plugin for Ignitions that generates a joint Dinamically during simulation with a topic where you send a string that contains parent model, parent link, child model and child link.
 It can be used to grab things in gazebo and for modular robots.
 

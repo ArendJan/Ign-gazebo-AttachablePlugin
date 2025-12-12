@@ -1,21 +1,32 @@
 
-# AttachablePlugin
+# GraspJoint Plugin
 =======
-# AttachablePlugin (AttachableJoint)
+# GraspJoint Plugin (GraspJoint)
+
+See GraspJoint/README.md as well.
+
+
 This is a plugin for Ignitions that generates a joint dynamically during simulation with a topic where you send a string that contains parent model, parent link, child model and child link.
 It can be used to grab things in gazebo and for modular robots.
 
+It will move the object to the link with an offset and then add a DetachableJoint so the objects stays in that position relative to the parent joint.
 
 1. Include the plugin in the .sdf world.
 
 It does not need to be inside a model. 
 ~~~
-<plugin filename=" <path_to_your_build_folder> /libAttachableJoint.so" name="attachable_joint::AttachableJoint">
-</plugin>
+<plugin
+    filename="GraspPlugin"
+    name="grasp_plugin::GraspJoint">
+    <attachtopic>/grasp/attach</attachtopic>
+    <offset_x>1.0</offset_x>
+    <offset_y>0.0</offset_y>
+    <offset_z>1.5</offset_z>
+    </plugin>
 ~~~
- for example:
-     <plugin filename="/home/ega/examples_ws/install/attachable_joint/lib/attachable_joint/libattachable_joint_plugin.so" name="attachable_joint::AttachableJoint"/>
 
+The offsets are in meters offset in the world frame.
+TODO: change this to parent link frame.
 
 2. Create and Destroy the Link Dinamically
 
@@ -43,13 +54,6 @@ ros2 topic pub /box2/attach std_msgs/msg/String 'data: "[diff_drive][lidar_link]
 
 
 # Installation
-
-0. Clone the version of [this](https://github.com/gazebosim/ros_gz_project_template/)  repository corresponding to your gazebo version
-
-For example:
-```bash
-git clone -b fortress https://github.com/gazebosim/ros_gz_project_template.git
-```
 
 1. Clone this repository e.g.
 
